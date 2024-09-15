@@ -4,28 +4,27 @@ import json from "@rollup/plugin-json";
 import copy from "rollup-plugin-copy";
 
 const esmAndCjsConfig = {
-	input: ["src/index.ts", "src/configLoader.ts"],
+	input: {
+		index: "src/index.ts",
+		configLoader: "src/configLoader.ts",
+	},
 	output: [
 		{
 			dir: "dist",
 			format: "esm",
 			sourcemap: true,
-			preserveModules: true,
-			preserveModulesRoot: "src",
 			entryFileNames: "[name].esm.js",
 		},
 		{
 			dir: "dist",
 			format: "cjs",
 			sourcemap: true,
-			preserveModules: true,
-			preserveModulesRoot: "src",
 			entryFileNames: "[name].cjs.js",
 			exports: "auto",
 		},
 	],
 	plugins: [
-		typescript(),
+		typescript({ declaration: true, declarationDir: "dist", rootDir: "src" }),
 		json(),
 		terser(),
 		copy({
