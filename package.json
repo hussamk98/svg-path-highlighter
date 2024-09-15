@@ -1,0 +1,37 @@
+{
+  "name": "svg-path-highlighter",
+  "version": "1.0.0",
+  "description": "A library to highlight SVG paths based on user interactions, making them interactive.",
+  "main": "dist/index.cjs.js",
+  "module": "dist/index.esm.js",
+  "types": "dist/index.d.ts",
+  "scripts": {
+    "build": "rollup -c rollup.config.mjs",
+    "test": "jest"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/hussamk98/svg-path-highlighter.git"
+  },
+  "keywords": [
+    "svg",
+    "highlighter",
+    "javascript",
+    "typescript",
+    "interactive"
+  ],
+  "author": "Hussam Khan",
+  "license": "MIT",
+  "devDependencies": {
+    "@rollup/plugin-json": "^6.1.0",
+    "@rollup/plugin-terser": "^0.4.4",
+    "@rollup/plugin-typescript": "^11.1.6",
+    "@types/jest": "^29.5.13",
+    "jest": "^29.7.0",
+    "jest-environment-jsdom": "^29.7.0",
+    "rollup": "^4.21.3",
+    "rollup-plugin-copy": "^3.5.0",
+    "ts-jest": "^29.2.5",
+    "typescript": "^5.6.2"
+  }
+}
