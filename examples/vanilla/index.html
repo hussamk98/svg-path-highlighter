@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SVG Path Highlighter Example</title>
+    <style>
+        .container {
+            display: flex;
+            gap: 1rem;
+        }
+
+        .json-container {
+            width: 100%;
+            border: 1px solid #ccc;
+            padding: 10px;
+            background-color: #f9f9f9;
+            border-radius: 5px;
+            overflow-x: auto;
+            max-width: 400px;
+        }
+
+        pre {
+            margin: 0;
+            font-family: monospace;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <div id="svgContainerFront" style="width: 500px; height: 500px;"></div>
+        <div id="svgContainerBack" style="width: 500px; height: 500px;"></div>
+        <div class="json-container">
+            <pre><code id="selectedPathsFront"></code></pre>
+            <pre><code id="selectedPathsBack"></code></pre>
+        </div>
+    </div>
+
+    <!-- Load SVGPathHighlighter from jsDelivr -->
+    <script src="https://cdn.jsdelivr.net/npm/svg-path-highlighter@1.0.5/dist/svg-path-highlighter.umd.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', async () => {
+
+
+            if (!window.SVGPathHighlighter) {
+                console.error('SVGPathHighlighter is not available');
+                return;
+            }
+
+            // Load config files from jsDelivr
+            const configFront = await fetch('https://cdn.jsdelivr.net/npm/svg-path-highlighter@1.0.5/dist/configs/body-front-config.json').then(response => response.json());
+            const configBack = await fetch('https://cdn.jsdelivr.net/npm/svg-path-highlighter@1.0.5/dist/configs/body-back-config.json').then(response => response.json());
+
+            const svgContainerFront = document.getElementById('svgContainerFront');
+            const svgContainerBack = document.getElementById('svgContainerBack');
+
+            const highlighterFront = new window.SVGPathHighlighter(svgContainerFront, configFront, { group1: ["1", "2"] });
+            const highlighterBack = new window.SVGPathHighlighter(svgContainerBack, configBack, { group1: ["1", "2"] });
+
+            highlighterFront.setSelectedPaths([]);
+            highlighterBack.setSelectedPaths([]);
+
+            svgContainerFront.addEventListener('selectionChange', (event) => {
+                const paths = Array.isArray(event.detail) ? event.detail : [];
+                document.getElementById('selectedPathsFront').textContent = JSON.stringify(paths, null, 2);
+            });
+
+            svgContainerBack.addEventListener('selectionChange', (event) => {
+                const paths = Array.isArray(event.detail) ? event.detail : [];
+                document.getElementById('selectedPathsBack').textContent = JSON.stringify(paths, null, 2);
+            });
+        });
+    </script>
+</body>
+
+</html>
