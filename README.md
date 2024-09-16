@@ -2,6 +2,8 @@
 
 A library to highlight SVG paths based on user interactions, making them interactive.
 
+![Demo](./demo.gif)
+
 ## Table of Contents
 
 - [Usage](#usage)
